@@ -13,13 +13,14 @@
 <!--    you can get the html codes from https://getbootstrap.com/docs/5.1/examples/ like we did in class, make sure to copy outer html.
         or you can of course do your own thing if you don't wanna use bootstrap.
         don't worry too much about the content for now, you can just make things up. what's important is the code. -->
+
 <!-- header -->
 <!-- poornitha and paolo -->
-        <header class="p-3 bg-dark text-white">
-            <div class="container">
+        <header class="p-2">
+            <div class="px-2 py-1 bg-dark text-white">
             <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
                 <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-                <img src="./bootstrap-logo.svg" width="40" height="32"/> <!--Please replace logo here-->
+                <img src="./bootstrap-logo.svg" class="ali"width="40" height="32"/> <!--Please replace logo here-->
                 </a>
                 <h2>Site Name</h2>  <!--Site name-->
 
@@ -35,7 +36,8 @@
                 <div class="offcanvas offcanvas-start navbar-light bg-dark" id="offcanvasMenus" style="width: 300px;">
                     <!-- Sidebar Header -->
                     <div class="border-bottom p-4 mb-4 shadow-sm">
-                        <img src="" alt="..." class="img-fluid w-50"> <!--Please put logo here-->
+                        <img src="" alt="..." class="img-fluid w-50">
+                        <h4> Hello, Sign in</h4> <!--Please put logo here-->
                         <button type="button" class="btn-close float-end text-white" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
 
@@ -70,23 +72,33 @@
                         </li>
                     </ul>
                 </div>
-                <li><a href="#" class="nav-link px-2 text-secondary">Home</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Features</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">Pricing</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">FAQs</a></li>
-                <li><a href="#" class="nav-link px-2 text-white">About</a></li>
                 </ul>
 
                 <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3">
                 <input type="search" class="form-control form-control-light" placeholder="Search..." aria-label="Search">
                 </form>
 
-               <div class="text-end">
+            <div class="text-end">
                 <!-- <button type="button" class="btn btn-outline-light me-2">Login</button> -->
-                <button type="button" class="btn btn-primary">Sign-up</button> 
+                <button type="button" class="btn btn-primary">Sign-up</button>
+                <a href="/" class="px-3">
+                    <img src="./cart4.svg" class="bg-light rounded-circle"width="40" height="32"/> <!--Please replace logo here-->
+                </a>
+
                 </div> 
             </div>
             </div>
+            <nav class="bg-light border-bottom">
+                <div class="container d-flex flex-wrap">
+                <ul class="nav me-auto">
+                    <li class="nav-item"><a href="#" class="nav-link link-dark px-2 active" aria-current="page">Home</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Features</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Pricing</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link link-dark px-2">FAQs</a></li>
+                    <li class="nav-item"><a href="#" class="nav-link link-dark px-2">About</a></li>
+                </ul>
+                </div>
+            </nav>
         </header>
         <br>
         <br>
@@ -95,45 +107,96 @@
         <br>
 
 
-        
-<!-- hero 1 -->
-<!-- paolo -->
-        
-        
-<!-- features 1 -->
-<!-- selma -->
-        
-        
-<!-- features 2 -->
-<!-- selma -->
-        
-        
-<!-- features 3 -->
-<!-- deniz -->
-        
-        
-<!-- hero 2 -->
-<div class="bg-dark text-secondary px-4 py-5 text-center">
-    <div class="py-5" >
-      <h5 class="fw-bold text-white">WANT TO KEEP UPDATED WITH NEW PRODUCT LAUNCHES?</h5>
-      <h6>Subscribe to our newsletters to get information about product launches and offers!</h6>
-      <!--<input type="textbox" class="form-control-lg form-control-light mb-3 " placeholder="Email address..." aria-label="textbox">
-      
-      <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+
+        <!-- hero 1 -->
+        <!-- paolo -->
+
+
+        <!-- features 1 -->
+        <!-- selma -->
+
+
+        <!-- features 2 -->
+        <!-- selma -->
+
+
+        <!-- features 3 -->
+        <!-- deniz -->
+
+
+        <!-- hero 2 -->
+        <div class="bg-dark text-secondary px-4 py-5 text-center">
+        <div class="py-5" >
+        <h5 class="text-white">WANT TO KEEP UPDATED WITH NEW PRODUCT LAUNCHES?</h5>
+        <h6>Subscribe to our newsletters to get information about product launches and offers!</h6>
+        <!--<input type="textbox" class="form-control-lg form-control-light mb-3 " placeholder="Email address..." aria-label="textbox">
+
+        <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
         <button type="submit" class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold">Subscribe Now</button>
-      </div> --> 
-      <div class="input-group mb-3 w-50 p-3">
+        </div> --> 
+        <div class="input-group mb-3 w-50 p-3 mx-auto">
         <input type="text" class="form-control" placeholder="Email address..." aria-label="Email address" aria-describedby="button-addon2">
         <button class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold" type="button" id="button-addon2">Subscribe Now</button>
-      </div>
-      
-      <div class="col-lg-6 mx-auto">
-          <h4 class="py-2"> About Us</h4>
-        <p>SiteName is exclusive of its kind online socail community designed to be the one-stop destination to represent the whole variety of handicrafts of the nation. SiteName community aims to connect local artists and artisans to global customers. Our platform stands out by specifically catering to artisanal products, becoming the top-of-mind online shop for those looking to support and buy local and for those needing a suitable platform to reach their niche markets. The platform is designed to foster the connectedness of its user community and to catapult its notable sellers. We will be a catalyst for creating a strongly connected and lively marketplace for a mass cultural community in a fast-paced and ever-shifting landscape such as the UAE.</p>
+        </div>
+        </div>
+
+        <div class="col-lg-6 mx-auto">
+        <h4 class="py-2"> About Us</h4>
+        <p>SiteName is exclusive of its kind online social community designed to be the one-stop destination to represent the whole variety of handicrafts of the nation. SiteName community aims to connect local artists and artisans to global customers. Our platform stands out by specifically catering to artisanal products, becoming the top-of-mind online shop for those looking to support and buy local and for those needing a suitable platform to reach their niche markets. The platform is designed to foster the connectedness of its user community and to catapult its notable sellers. We will be a catalyst for creating a strongly connected and lively marketplace for a mass cultural community in a fast-paced and ever-shifting landscape such as the UAE.</p>
+
+        </div>
+        </div>
+        </div>
+
         
-      </div>
+<!-- footer -->
+<!-- deniz -->
+<div class="container">
+    <footer class="py-3 my-4">
+      <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Features</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">Pricing</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link px-2 text-muted">About</a></li>
+      </ul>
+      <p class="text-center text-muted">© 2021 Company, Inc</p>
+    </footer>
+  </div>
+        
+        
+        
+        
+    </body>
+</html>
+        <!-- features 1 -->
+<!-- selma -->
+        <div class="card-group">
+  <div class="card">
+    <img src="images/art.png"  class="card-img-top" alt="..." height="300">
+    <div class="card-body">
+      <h5 class="card-title">ART 1</h5> <!-- Here we will wich arts and crafts its available and pictures-->
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <p class="card-text"><small class="text-muted">some comment here</small></p>
     </div>
   </div>
+  <div class="card">
+    <img src="images/art2.png" class="card-img-top" alt="..." height="300">
+    <div class="card-body">
+      <h5 class="card-title">ART 2</h5>
+      <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+      <p class="card-text"><small class="text-muted">some comment here</small></p>
+    </div>
+  </div>
+  <div class="card">
+    <img src="images/art3.png" class="card-img-top" alt="..." height="300">
+    <div class="card-body">
+      <h5 class="card-title">ART 3</h5>
+      <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <p class="card-text"><small class="text-muted">some comment here</small></p>
+    </div>
+  </div>
+</div>
 
         
 <!-- footer -->
