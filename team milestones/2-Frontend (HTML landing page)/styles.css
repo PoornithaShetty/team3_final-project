@@ -1,3 +1,8 @@
+*{
+    font-family: 'Reem Kufi', sans-serif;
+}
+
+
 .b-example-divider {
     height: 3rem;
     background-color: rgba(0, 0, 0, .1);
@@ -29,4 +34,15 @@
 
 .dropdown-toggle {
     outline: 0;
+}
+
+#hero1-bg-dark {
+    background-image: url(images/hero-bg.png);
+    /* background-color: black; */
+    background-size:     cover;
+    background-repeat:   no-repeat;
+}
+
+#p2-no-padding {
+    padding: 0px;
 }
