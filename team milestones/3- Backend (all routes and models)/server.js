@@ -12,12 +12,62 @@ const expressFormData = require('express-form-data');
 
 // Import mongoose to connect to MongoDB Atlas
 const mongoose = require('mongoose');
+const UserModel = require('./models/UserModel.js');
+const userRoutes = require('./routes/user-routes.js');
 
 const ProductModel = require('./models/ProductModel.js');
 const productRoutes = require('./routes/product-route.js');
 
 const ShoppingCartModel = require('./models/ShoppingCartModel.js');
 const shoppingCartRoutes = require('./routes/shoppingCart-route.js');
+
+// Use passport, passport-jwt to read the clien't jwt
+const passport = require('passport');
+const JwtStrategy = require('passport-jwt').Strategy;
+const ExtractJwt = require('passport-jwt').ExtractJwt;
+const jwtSecret = process.env.JWT_SECRET;
+
+const passportJwtOptions = {
+    jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+    secretOrKey: jwtSecret,
+}
+
+// This function will tell passport how what to do
+// with the payload.
+const passportJwt = (passport) => {
+    passport.use(
+        new JwtStrategy(
+            passportJwtOptions,
+            (jwtPayload, done) => {
+
+                // Tell passport what to do with payload
+                UserModel
+                .findOne({ _id: jwtPayload._id })
+                .then(
+                    (dbDocument) => {
+                        // The done() function will pass the 
+                        // dbDocument to Express. The user's 
+                        // document can then be access via req.user
+                        return done(null, dbDocument)
+                    }
+                )
+                .catch(
+                    (err) => {
+                        // If the _id or anything is invalid,
+                        // pass 'null' to Express.
+                        if(err) {
+                            console.log(err);
+                        }
+                        return done(null, null)
+                    }
+                )
+
+            }
+        )
+    )
+};
+passportJwt(passport)
+
 
 // Run the express function to get the methods
 const server = express(); 
@@ -53,6 +103,11 @@ mongoose
 
 // This is only here to quicklt check that the backend is running
 server.get('/', function(req, res){res.send('Welcome')});
+
+
+server.use(
+    '/user', userRoutes         // http://www.something.com/user/
+);
 
 server.use(
     '/product', productRoutes         // http://www.something.com/user/
