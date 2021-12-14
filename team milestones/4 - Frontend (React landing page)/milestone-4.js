@@ -25,7 +25,7 @@ class App extends React.Component{
  <button type="button" className="btn btn-secondary btn-block">LOGIN</button>
  <div className="message">
 <div><input type="checkbox" /> Remember ME</div>
- <div><a href="#">Forgot your password</a></div>/// here if you want change to another we can
+ <div><a href="#">Forgot Password?</a></div>/// here if you want change to another we can
  </div>
    </form>
             <div className="social"> //here i add the social media part if any changes you want we can made after the mile stone submit no problem//
