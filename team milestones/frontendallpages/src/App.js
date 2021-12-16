@@ -10,6 +10,9 @@ import SellerRegistration from "./SellerRegistration.js";
 import SellerLogin from "./SellerLogin.js";
 import LandingPage from "./LandingPage.js";
 import UserCart from "./UserCart.js";
+import SellerLandingPage from "./SellerLandingPage.js"
+import Seller_AddProduct from "./Seller_AddProduct.js";
+
 
 
 
@@ -25,11 +28,14 @@ function App(){
                 <LayoutRoute path='/cart' exact={true} component={UserCart}/>
                 <SellerLayoutRoute path='/seller/login' exact={true} component={SellerLogin}/>
                 <SellerLayoutRoute path='/seller/register' exact={true} component={SellerRegistration}/>
-                
+                <SellerLayoutRoute path='/seller/landing' exact={true} component={SellerLandingPage}/>
+                <SellerLayoutRoute path='/seller/productadd' exact={true} component={Seller_AddProduct}/>
+
             </Switch>
         </BrowserRouter>
         
     )
 }
+
 
 export default App;

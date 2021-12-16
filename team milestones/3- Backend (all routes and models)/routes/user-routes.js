@@ -1,13 +1,10 @@
-
 const express = require('express');
-
 // We only need the routing methods from Express
 const router = express.Router();
-
 const UserModel = require('../models/UserModel.js');
-
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
+const cloudinary = require('cloudinary').v2;
 
 // This is similar to salt in bcrypt
 const jwtSecret = process.env.JWT_SECRET
@@ -22,7 +19,7 @@ router.post( '/register',
             'lastName': req.body.lastName,
             'email': req.body.email,
             'password': req.body.password,
-            'phone': req.body.phone
+            'phone': req.body.phone,
         }
 
 
@@ -30,12 +27,39 @@ router.post( '/register',
         UserModel
         .findOne( { email: formData['email']} )
         .then(
-            function (dbDocument) {
+            async function (dbDocument) {
+
+                // If avatar file is included...
+                if( Object.values(req.files).length > 0 ) {
+
+                    const files = Object.values(req.files);
+                    
+                    // upload to Cloudinary
+                    await cloudinary.uploader.upload(
+                        files[0].path,
+                        (cloudinaryErr, cloudinaryResult) => {
+                            if(cloudinaryErr) {
+                                console.log(cloudinaryErr);
+                                res.json(
+                                    {
+                                        status: "not ok",
+                                        message: "Error occured during image upload"
+                                    }
+                                )
+                            } else {
+                                // Include the image url in formData
+                                formData.avatar = cloudinaryResult.url;
+                            }
+                        }
+                    )
+                };
+
                 // If email is unique...
                 if(!dbDocument) {
            
                     // Generate a salt
                     bcryptjs.genSalt(
+
                         function(bcryptError, theSalt) {
                         // Use the (a) and (b) salt user's password 
                         // and produce hashed password
@@ -53,7 +77,10 @@ router.post( '/register',
                                     .then(
                                         function(createdDocument) {
                                             // Express sends this...
-                                           res.json(createdDocument);
+                                           res.json({
+                                               status: "ok",
+                                               createdDocument
+                                            });
                                         }
                                     )
                                     // If problem occurs, the catch the problem...
@@ -191,6 +218,36 @@ router.post('/login',
                         }
                     );
                 }
+            }
+        )
+        .catch(
+            (err) => {
+                console.log(err);
+
+                res.status(503).json(
+                    {
+                        "status": "not ok",
+                        "message": "Please try again later"
+                    }
+                );
+            }
+        )
+    }
+)
+
+
+router.get(
+    '/get',         // http://www.website.com/user/get
+    function() {
+        UserModel
+        .find()
+        .then(
+            function(dbDocument) {
+                res.json(
+                    {
+                        message: dbDocument
+                    }
+                )
             }
         )
         .catch(

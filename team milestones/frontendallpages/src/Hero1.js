@@ -1,5 +1,4 @@
 import { useState } from "react";
-import hero from './hero.png'
 
 function Hero1() {
     return(

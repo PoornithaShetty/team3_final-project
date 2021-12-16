@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 
 const ProductModel = require('../models/ProductModel.js');
+const cloudinary = require('cloudinary').v2;
 
 router.get(
     '/productlist', 
@@ -22,30 +23,60 @@ router.post(
             'productDescription' : req.body.productDescription,
             'productPrice' : req.body.productPrice,
             'productStock' : req.body.productStock,
-            'productImage' : req.body.productImage
+            'productCategory' : req.body.productCategory,
         }
-        // ProductModel
-        // .create(formData)
-        // //if successfull
-        // .then(
-        //     function(){
-        //         //Express sends this...
-        //         res.send("Product added successfully.");
-        //     }
-        // )
-        // //If Problem occurs,
-        // .catch(
-        //     function(dbError)
-        //     {
-        //         console.log("An error occured during .create()", dbError);
-        //     }
-        // )
-        let product = new ProductModel(req.body);
-    product.save().then(product => {
-        res.status(200).json({"product": `Product added successfully. Created product details: ${product}`});
-    }).catch(err => {
-        res.status(400).send(`Adding new product failed. Error details: ${err.message}`);
-    });
+        async function add () {
+            // If avatar file is included...
+            if( Object.values(req.files).length > 0 ) {
+   
+               const files = Object.values(req.files);
+               
+               // upload to Cloudinary
+               await cloudinary.uploader.upload(
+                   files[0].path,
+                   (cloudinaryErr, cloudinaryResult) => {
+                       if(cloudinaryErr) {
+                           console.log(cloudinaryErr);
+                           res.json(
+                               {
+                                   status: "not ok",
+                                   message: "Error occured during image upload"
+                               }
+                           )
+                       } else {
+                           // Include the image url in formData
+                           formData.avatar = cloudinaryResult.url;
+                       }
+                   }
+               )
+           };
+        }
+        ProductModel
+        .create(formData)
+        //if successfull
+        .then(
+            function(createdDocument) {
+                // Express sends this...
+               res.json({
+                   status: "ok",
+                   createdDocument
+                });
+            }
+        )
+        //If Problem occurs,
+        .catch(
+            function(dbError)
+            {
+                console.log("An error occured during .create()", dbError);
+            }
+        )
+    //     let product = new ProductModel(req.body);
+    // product.save().then(product => {
+    //     res.status(200).json({"product": `Product added successfully. Created product details: ${product}`});
+    // })
+    // .catch(err => {
+    //     res.status(400).send(`Adding new product failed. Error details: ${err.message}`);
+    // });
     }
 
 )
