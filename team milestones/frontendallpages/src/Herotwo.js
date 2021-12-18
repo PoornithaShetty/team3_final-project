@@ -4,9 +4,9 @@ function Herotwo(){
  <div class="bg-dark text-secondary px-4 py-4 text-center">
         <div class="py-2" >
         <h5 class="text-white">WANT TO KEEP UPDATED WITH NEW PRODUCT LAUNCHES?</h5>
-        <h6>Subscribe to our newsletters to get information about product launches and offers!</h6>
+        <h6>Subscribe to our newsletters to get information on product launches and offers!</h6>
         <div class="input-group mb-3 w-50 p-2 mx-auto">
-        <input type="text" class="form-control" placeholder="Email address..." aria-label="Email address" aria-describedby="button-addon2"/>
+        <input type="text" class="form-control" placeholder="Email Address" aria-label="Email address" aria-describedby="button-addon2"/>
         <button class="btn btn-outline-info btn-lg px-4 me-sm-3 fw-bold" type="button" id="button-addon2">Subscribe Now</button>
         </div>
         </div>
