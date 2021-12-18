@@ -1,37 +1,38 @@
 const mongoose=require('mongoose');
 
 //Create the schema
-const UserSchema = new mongoose.Schema(
+const HomeDecorSchema = new mongoose.Schema(
     {
-        firstName:{
+        productName:{
             type: String,
             required: true
         },
-        lastName:{
+        productDescription:{
             type: String,
             required: true
         },
-        email:{
+        productPrice:{
             type:String,
             required: true
         },
-        password:{
+        productStock:{
             type: String,
             required: true
         },
-        phone:{
+        productCategory:{
             type: String,
-            required: false
+            required: true
         },
-        avatar: {
-            type: String,
-            required: false
+        productImage:{
+            type:String,
+            required:false
         }
-    }
+    
+        }
 )
 
 //Create the model
- const UserModel = mongoose.model('users', UserSchema);
+ const HomeDecorModel = mongoose.model('homedecors', HomeDecorSchema);
 
 //Export the model
-  module.exports = UserModel;
+  module.exports = HomeDecorModel;

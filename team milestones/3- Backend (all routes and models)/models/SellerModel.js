@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 
 //Create the schema
-const UserSchema = new mongoose.Schema(
+const SellerSchema = new mongoose.Schema(
     {
         firstName:{
             type: String,
@@ -31,7 +31,7 @@ const UserSchema = new mongoose.Schema(
 )
 
 //Create the model
- const UserModel = mongoose.model('users', UserSchema);
+ const SellerModel = mongoose.model('seller', SellerSchema);
 
 //Export the model
-  module.exports = UserModel;
+  module.exports = SellerModel;

@@ -73,7 +73,7 @@ function SellerRegistration() {
             formData.append('phoneNumber', phoneField.value);
 
             fetch(
-                `${process.env.REACT_APP_BACKEND}/user/register`,
+                `${process.env.REACT_APP_BACKEND}/seller/sellerregister`,
                 {
                     method: 'POST',
                     body: formData

@@ -91,7 +91,7 @@ function FP_Header1(props)
      <Link to="/register" className="btn px-3">
      <button type="button" className="btn btn-primary">Sign Up</button>
      </Link>
-     <Link to="/seller/login" className="btn px-3 text-white">Seller Portal</Link>
+     <Link to="/seller/sellerlogin" className="btn px-3 text-white">Seller Portal</Link>
      <Link to="/cart" className="px-3">
      <img src={cart} alt="Cart"/>
      </Link>

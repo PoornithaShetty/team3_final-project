@@ -1,7 +1,7 @@
 const express = require('express');
 // We only need the routing methods from Express
 const router = express.Router();
-const UserModel = require('../models/UserModel.js');
+const SellerModel = require('../models/SellerModel.js');
 const bcryptjs = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const cloudinary = require('cloudinary').v2;
@@ -10,7 +10,7 @@ const cloudinary = require('cloudinary').v2;
 const jwtSecret = process.env.JWT_SECRET
 
 // No need to include '/user' here in the document part of the URL
-router.post( '/register',
+router.post( '/sellerregister',
     function(req, res) {
 
         // Client (browser, postman) POSTs this...
@@ -24,7 +24,7 @@ router.post( '/register',
 
 
         // Check if email is unique
-        UserModel
+        SellerModel
         .findOne( { email: formData['email']} )
         .then(
             async function (dbDocument) {
@@ -72,7 +72,7 @@ router.post( '/register',
                                     formData['password'] = theHash;
 
                                     // Create the user's account with hashed password
-                                    UserModel
+                                    SellerModel
                                     .create(formData)
                                     // If successful...
                                     .then(
@@ -139,7 +139,7 @@ router.post( '/register',
 );
 
 // Login user
-router.post('/login', 
+router.post('/sellerlogin', 
     (req, res) => {
 
         // Capture form data
@@ -149,7 +149,7 @@ router.post('/login',
         }
 
         // Check if email exists
-        UserModel
+        SellerModel
         .findOne({ email: formData.email })
         .then(
             (dbDocument) => {
@@ -244,9 +244,9 @@ router.post('/login',
 
 
 router.get(
-    '/get',         // http://www.website.com/user/get
+    '/sellerget',         // http://www.website.com/user/get
     function() {
-        UserModel
+        SellerModel
         .find()
         .then(
             function(dbDocument) {

@@ -1,15 +1,15 @@
 import { useState } from "react";
 
-function FP_RegistrationScreen(){
+function Seller_AddPaintingsProduct(){
 
      // formState: (1) initial, (2) loading, (3) validationFailed, (4) successful, (5) unsuccessful
     const [formState,setFormState] = useState("initial"); 
 
-            let firstNameField;
-            let lastNameField;
-            let emailField;
-            let passwordField;
-            let phoneField;
+            let productNameField;
+            let productDescriptionField;
+            let productPriceField;
+            let productStockField;
+            let productCategoryField;
             let checkBox;
             let avatarInput;
 
@@ -34,21 +34,21 @@ function FP_RegistrationScreen(){
     }
 
 
-    function registerUser(){
+    function createProduct(){
         const errors = [];
         
         // 1. Validate all of the required fields
-        if( firstNameField.value.length === 0 ) {
-            errors.push("Please enter your first name");
+        if( productNameField.value.length === 0 ) {
+            errors.push("Please enter your product name");
         }
-        if( lastNameField.value.length === 0 ) {
-            errors.push("Please enter your last name");
+        if( productDescriptionField.value.length === 0 ) {
+            errors.push("Please enter your Product Description");
         }
-        if( emailField.value.length === 0 ) {
-            errors.push("Please enter valid email");
+        if( productPriceField.value.length === 0 ) {
+            errors.push("Please enter product price");
         }
-        if( passwordField.value.length === 0 ) {
-            errors.push("Please enter valid password");
+        if( productStockField.value.length === 0 ) {
+            errors.push("Please enter product stock value");
         }
         if( checkBox.checked === false ) {
             errors.push("Please accept the terms & conditions");
@@ -66,14 +66,14 @@ function FP_RegistrationScreen(){
             setErrorsState([]);
            
             
-            formData.append('firstName', firstNameField.value);
-            formData.append('lastName', lastNameField.value);
-            formData.append('email', emailField.value);
-            formData.append('password', passwordField.value);
-            formData.append('phoneNumber', phoneField.value);
+            formData.append('productName', productNameField.value);
+            formData.append('productDescription', productDescriptionField.value);
+            formData.append('productPrice', productPriceField.value);
+            formData.append('productStock', productStockField.value);
+            formData.append('productCategory', productCategoryField.value);
 
             fetch(
-                `${process.env.REACT_APP_BACKEND}/user/register`,
+                `${process.env.REACT_APP_BACKEND}/product/paintingproductadd`,
                 {
                     method: 'POST',
                     body: formData
@@ -104,57 +104,63 @@ function FP_RegistrationScreen(){
         }
     }
     return(
-        <div id="registration-bg" className="py-5">
+        <div id="sellerproductadd-bg" className="py-5">
         <div className="container border border-5 border-secondary" style={{"margin-top": "0em", "max-width": "35em"}}>
             
-            <h1>Sign Up</h1>
+            <h1>Add Product</h1>
             <br/>
 
-            <label>Enter your firstname *</label>
+            <label>Enter Product Name *</label>
             <input ref={
                 function(theInputElement) {
-                    firstNameField = theInputElement;
+                    productNameField = theInputElement;
                 }
-            }className="field form-control" name="firstName" type="text" />
+            }className="field form-control" name="productName" type="text" />
 
-            <label>Enter your lastname *</label>
+            <label>Enter Product Description *</label>
             <input ref={
                 function(thisInputField) {
-                    lastNameField = thisInputField;
+                    productDescriptionField = thisInputField;
                 }
-            } className="field form-control" name="lastName" type="text" />
+            } className="field form-control" name="productDescription" type="text" />
 
-            <label>Enter your email *</label>
+            <label>Enter Product Price *</label>
             <input ref={
                 function(thisInputField) {
-                    emailField = thisInputField
+                    productPriceField = thisInputField
                 }
-            }className="field form-control" name="email" type="text" />
+            }className="field form-control" name="productPrice" type="text" />
 
-            <label>Enter a password *</label>
+            <label>Enter Product stock *</label>
             <input ref={
                 function(thisInputField) {
-                    passwordField = thisInputField
+                    productStockField = thisInputField
                 }
-            }className="field form-control" name="password" autocomplete="off" type="password" />
+            }className="field form-control" name="productStock"  type="text" />
 
-            <label>Enter your phone (optional)</label>
+            {/* <label>Enter Product Category </label>
             <input ref={
                 function(thisInputField) {
-                    phoneField = thisInputField
+                    productCategoryField = thisInputField
                 }
-            }className="field form-control" name="phone" type="text" />
-
+            }className="field form-control" name="productCategory" type="text" /> */}
+            <br/>
+            <div className="input-group">
+            <select ref={
+                function(thisInputField) {
+                    productCategoryField = thisInputField
+                }
+            } className="form-select" id="inputGroupSelect04" aria-label="Example select with button addon">
+                <option selected>Choose Category</option>
+                <option value="1">Home Decor</option>
+                <option value="2">Painting</option>
+            </select>
+            </div>
             <br/><br/>
 
-            <label>Upload your profile picture</label>
+            <label>Upload product Image</label>
             <input ref={(element)=>{ avatarInput = element}} 
-             onChange={attachFile}
-             onClick={(evt)=> { 
-                 evt.target.value = null
-             }}
-             className="field form-control" id="photo" name="file" 
-             type="file" multiple="multiple"/>
+            onChange={attachFile} className="field form-control" id="photo" name="file" type="file" multiple="multiple"/>
 
             <br/><br/>
 
@@ -172,10 +178,10 @@ function FP_RegistrationScreen(){
                 formState !== "loading" &&
                 <div>
                     <button 
-                    onClick={registerUser}
+                    onClick={createProduct}
                     className="btn btn-primary"
                     style={{"padding": "10px", "font-size": "16px"}}>
-                        Submit
+                        Add Product
                     </button><br/><br/>
                 </div>
             }
@@ -199,7 +205,7 @@ function FP_RegistrationScreen(){
 
 {
                 formState === "successful" &&
-                <div className="alert alert-success">You have a successfully created an account</div>
+                <div className="alert alert-success">Your product has been added successfully</div>
             }
 
             {
@@ -216,4 +222,4 @@ function FP_RegistrationScreen(){
     )
 }
 
-export default FP_RegistrationScreen;
+export default Seller_AddPaintingsProduct;

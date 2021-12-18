@@ -11,10 +11,11 @@ import SellerLogin from "./SellerLogin.js";
 import LandingPage from "./LandingPage.js";
 import UserCart from "./UserCart.js";
 import SellerLandingPage from "./SellerLandingPage.js"
-import Seller_AddProduct from "./Seller_AddProduct.js";
-
-
-
+import Seller_AddHomeDecorProduct from "./Seller_AddHomeDecorProduct.js";
+import LoginScreen from "./LoginScreen.js";
+import ProfileScreen from './ProfileScreen.js';
+import SellerChooseCategory from "./SellerChooseCategory.js";
+import Seller_AddPaintingsProduct from './Seller_AddPaintingsProduct.js'
 
 function App(){
     return(
@@ -22,15 +23,19 @@ function App(){
             <Switch>
                 <LayoutRoute path='/' exact={true} component={LandingPage}/>
                 <LayoutRoute path='/register' exact={true} component={FP_RegistrationScreen}/>
+                <LayoutRoute path='/landing' exact={true} component={FP_LoggedInPage}/>
                 <LayoutRoute path='/homedecorpage' exact={true} component={HomeDecorPage}/>
                 <LayoutRoute path='/paintings' exact={true} component={PaintingsPage}/>
                 <LayoutRoute path='/aboutus' exact={true} component={AboutUsScreen}/>
                 <LayoutRoute path='/cart' exact={true} component={UserCart}/>
-                <SellerLayoutRoute path='/seller/login' exact={true} component={SellerLogin}/>
+                <LayoutRoute path="/profile" exact={true} component={ProfileScreen} />
+                <SellerLayoutRoute path='/seller/sellerlogin' exact={true} component={SellerLogin}/>
                 <SellerLayoutRoute path='/seller/register' exact={true} component={SellerRegistration}/>
-                <SellerLayoutRoute path='/seller/landing' exact={true} component={SellerLandingPage}/>
-                <SellerLayoutRoute path='/seller/productadd' exact={true} component={Seller_AddProduct}/>
-
+                <SellerLayoutRoute path='/sellerlanding' exact={true} component={SellerLandingPage}/>
+                <SellerLayoutRoute path='/seller/productadd' exact={true} component={SellerChooseCategory}/>
+                <SellerLayoutRoute path='/seller/homedecor/productadd' exact={true} component={Seller_AddHomeDecorProduct}/>
+                <SellerLayoutRoute path='/seller/paintings/productadd' exact={true} component={Seller_AddPaintingsProduct}/>
+                /seller/homedecor/productadd
             </Switch>
         </BrowserRouter>
         
