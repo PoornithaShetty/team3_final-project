@@ -16,10 +16,13 @@ import LoginScreen from "./LoginScreen.js";
 import ProfileScreen from './ProfileScreen.js';
 import SellerChooseCategory from "./SellerChooseCategory.js";
 import Seller_AddPaintingsProduct from './Seller_AddPaintingsProduct.js'
+import PageNotFound from './PageNotFound.js'
 
 function App(){
     return(
         <BrowserRouter>
+            <Switch>
+            <BrowserRouter>
             <Switch>
                 <LayoutRoute path='/' exact={true} component={LandingPage}/>
                 <LayoutRoute path='/register' exact={true} component={FP_RegistrationScreen}/>
@@ -35,7 +38,9 @@ function App(){
                 <SellerLayoutRoute path='/seller/productadd' exact={true} component={SellerChooseCategory}/>
                 <SellerLayoutRoute path='/seller/homedecor/productadd' exact={true} component={Seller_AddHomeDecorProduct}/>
                 <SellerLayoutRoute path='/seller/paintings/productadd' exact={true} component={Seller_AddPaintingsProduct}/>
-                /seller/homedecor/productadd
+                <Route component={PageNotFound}/>
+            </Switch>
+        </BrowserRouter>
             </Switch>
         </BrowserRouter>
         
