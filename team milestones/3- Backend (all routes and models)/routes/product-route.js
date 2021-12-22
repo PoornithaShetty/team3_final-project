@@ -29,7 +29,7 @@ router.get(
 
 router.get(
     '/paintingsproductlist', 
-    function(req, res) {
+    function(req, res) {       
         PaintingModel.find().then(products => {
         res.status(200).json(products);
     }).catch(err => {
@@ -38,14 +38,46 @@ router.get(
 })
 
 router.get(
-    '/:product_id', 
+    '/:productCategory/:product_id/', 
     function(req, res) {
+        productCategory = req.params.productCategory
+        if (productCategory === "homedecor"){
         HomeDecorModel.findById(req.params.product_id).then(products => {
         res.status(200).json(products);
-    }).catch(err => {
+    })
+    .catch(err => {
         res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
     });
+}
+        else if (productCategory === "paintings") {
+        PaintingModel.findById(req.params.product_id).then(products => {
+            res.status(200).json(products);
+        }).catch(err => {
+            res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
+        });
+    }
 })
+
+// router.get(
+//     '/:productCategory/:product_id/', 
+//     function(req, res) {
+//         PaintingModel.findById(req.params.product_id).then(products => {
+//             res.status(200).json(products);
+//         }).catch(err => {
+//             res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
+//         });
+//     }
+// )
+
+// router.get(
+//     '/paintings/:product_id', 
+//     function(req, res) {
+//         PaintingModel.findById(req.params.product_id).then(products => {
+//         res.status(200).json(products);
+//     }).catch(err => {
+//         res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
+//     });
+// })
 
 // router.post("/:product_id", function(req, res) {
 //     const formData = {

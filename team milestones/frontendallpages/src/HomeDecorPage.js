@@ -1,10 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import heart from './heart.svg';
-import candleholder from './candle-holders.png';
-import clock1 from './clock1.png';
-import product1 from './product1.png';
-import romanvases from './romanvases.png'
 
 
 
@@ -44,7 +40,7 @@ function HomeDecorPage(){
                         <small>Price:{item.productPrice}</small>
                     </li>
                     </ul>
-                    <Link to={`/product/${item._id}`} className="btn btn-primary">View Details</Link>
+                    <Link to={`/homedecor/${item._id}`} className="btn btn-primary">View Details</Link>
                     </div>
                     </div>
                 </div>

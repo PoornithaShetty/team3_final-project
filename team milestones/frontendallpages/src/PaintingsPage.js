@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 
 
 
@@ -38,7 +39,7 @@ function PaintingsPage(){
                         <small>Price:{item.productPrice}</small>
                     </li>
                     </ul>
-                    <a href="#" className="btn btn-primary">Add to cart</a>
+                    <Link to={`paintings/${item._id}`} className="btn btn-primary">View Details</Link>
                     </div>
                     </div>
                 </div>

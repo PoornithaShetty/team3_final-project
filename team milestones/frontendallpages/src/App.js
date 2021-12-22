@@ -16,22 +16,23 @@ import LoginScreen from "./LoginScreen.js";
 import ProfileScreen from './ProfileScreen.js';
 import SellerChooseCategory from "./SellerChooseCategory.js";
 import Seller_AddPaintingsProduct from './Seller_AddPaintingsProduct.js'
+import ProductDetailsPage from './ProductDetailsPage.js'
 import PageNotFound from './PageNotFound.js'
 
 function App(){
     return(
         <BrowserRouter>
             <Switch>
-            <BrowserRouter>
-            <Switch>
                 <LayoutRoute path='/' exact={true} component={LandingPage}/>
                 <LayoutRoute path='/register' exact={true} component={FP_RegistrationScreen}/>
                 <LayoutRoute path='/landing' exact={true} component={FP_LoggedInPage}/>
-                <LayoutRoute path='/homedecorpage' exact={true} component={HomeDecorPage}/>
+                <LayoutRoute path='/homedecor' exact={true} component={HomeDecorPage}/>
                 <LayoutRoute path='/paintings' exact={true} component={PaintingsPage}/>
                 <LayoutRoute path='/aboutus' exact={true} component={AboutUsScreen}/>
                 <LayoutRoute path='/cart' exact={true} component={UserCart}/>
                 <LayoutRoute path="/profile" exact={true} component={ProfileScreen} />
+                <LayoutRoute path="/homedecor/:productId" exact={true} component={ProductDetailsPage} />
+                <LayoutRoute path="/paintings/:productId" exact={true} component={ProductDetailsPage} />
                 <SellerLayoutRoute path='/seller/sellerlogin' exact={true} component={SellerLogin}/>
                 <SellerLayoutRoute path='/seller/register' exact={true} component={SellerRegistration}/>
                 <SellerLayoutRoute path='/sellerlanding' exact={true} component={SellerLandingPage}/>
@@ -39,8 +40,6 @@ function App(){
                 <SellerLayoutRoute path='/seller/homedecor/productadd' exact={true} component={Seller_AddHomeDecorProduct}/>
                 <SellerLayoutRoute path='/seller/paintings/productadd' exact={true} component={Seller_AddPaintingsProduct}/>
                 <Route component={PageNotFound}/>
-            </Switch>
-        </BrowserRouter>
             </Switch>
         </BrowserRouter>
         

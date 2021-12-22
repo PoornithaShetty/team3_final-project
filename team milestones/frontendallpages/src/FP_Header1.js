@@ -50,7 +50,7 @@ function FP_Header1(props)
              </li>
             <h6 className="nav-item px-2">All Categories</h6>
              <li className="nav-item px-4">
-             <Link to="/homedecorpage" className={`nav-link ${state['/homedecorpage']}`}>HomeDecor</Link>
+             <Link to="/homedecor" className={`nav-link ${state['/homedecor']}`}>HomeDecor</Link>
              </li><li className="nav-item px-4">
              <Link to="/paintings" className={`nav-link ${state['/paintings']}`}>Paintings</Link>
              </li>
