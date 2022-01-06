@@ -45,7 +45,7 @@ function PrintsPage(){
                                                      <small>Price:{item.productPrice}</small>
                                                  </li>
                                              </ul>
-                                             <Link to={`/paintings/${item._id}`} className="btn btn-color text-white">View Details</Link>
+                                             <Link to={`/product/${item._id}`} className="btn btn-color text-white">View Details</Link>
                                          </div>
                                      </div>
                                  </div>

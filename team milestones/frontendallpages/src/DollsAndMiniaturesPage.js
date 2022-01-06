@@ -8,12 +8,6 @@ function DollsAndMiniaturesPage(){
         fetchItems();
     }, []);
       
-     const pathname = window.location.pathname
- 
-      const category = pathname.split(`/`)
-     
-      const productCategory = category.at(1)
-      
      const [items, setItems] = useState([]);
   
       const fetchItems =async () => {
@@ -45,7 +39,7 @@ function DollsAndMiniaturesPage(){
                                                      <small>Price:{item.productPrice}</small>
                                                  </li>
                                              </ul>
-                                             <Link to={`/${item._id}`} className="btn btn-color text-white">View Details</Link>
+                                             <Link to={`/product/${item._id}`} className="btn btn-color text-white">View Details</Link>
                                          </div>
                                      </div>
                                  </div>

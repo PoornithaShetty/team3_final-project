@@ -14,7 +14,7 @@ function FP_Navbar1()
          <li className="nav-item"><a href="/paintings" className="nav-link link-secondary px-2">Painting |</a></li>
          <li className="nav-item"><a href="/prints" className="nav-link link-secondary px-2">Prints |</a></li>
          <li className="nav-item"><a href="/mixedmediaandcollage" className="nav-link link-secondary px-2">Mixed Media and Collage |</a></li>
-         <li className="nav-item"><a href="dollsandminiatures" className="nav-link link-secondary px-2">Dolls and Miniatures </a></li>
+         <li className="nav-item"><a href="/dollsandminiatures" className="nav-link link-secondary px-2">Dolls and Miniatures </a></li>
      </ul>
      </div>
  </nav>

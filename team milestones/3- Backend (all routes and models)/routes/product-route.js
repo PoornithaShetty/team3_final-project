@@ -3,9 +3,6 @@ const express = require('express');
 const router = express.Router();
 const cloudinary = require('cloudinary').v2;
 const ProductModel = require('../models/ProductModel.js');
-const HomeDecorModel = require('../models/HomeDecorModel.js');
-const PaintingModel = require('../models/PaintingModel.js');
-const SculptureModel = require('../models/PaintingModel.js');
 const ShoppingCartModel = require('../models/ShoppingCartModel.js');
 
 router.get(
@@ -162,7 +159,7 @@ router.post( '/cartadd',
 
         // Check if email is unique
         ShoppingCartModel
-        .findOne( { productCategory: formData['productCategory']} )
+        .findOne()
         .then(
             async function (dbDocument) {
 
