@@ -14,7 +14,8 @@ const initialState = {
     jsonwebtoken: localStorage.getItem('jsonwebtoken') || undefined,
     loggedIn: localStorage.getItem('firstName') ? true :false,
     email: localStorage.getItem('email') || undefined,
-    avatar: localStorage.getItem('avatar') || undefined
+    avatar: localStorage.getItem('avatar') || undefined,
+    userId: localStorage.getItem('{_id') || undefined,
 }
 
 
@@ -43,6 +44,7 @@ export const UserContextProvider = ({ children }) => {
             localStorage.setItem('email', payload.email);
             localStorage.setItem('avatar', payload.avatar);
             localStorage.setItem('jsonwebtoken', payload.jsonwebtoken);
+            localStorage.setItem('_id', payload.userId);
 
 
             dispatch(

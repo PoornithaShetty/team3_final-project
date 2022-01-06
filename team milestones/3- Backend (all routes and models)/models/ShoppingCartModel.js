@@ -7,6 +7,10 @@ const ShoppingCartSchema = new mongoose.Schema(
             type: String,
             required: true
         },
+        userEmail:{
+            type:String,
+            required: true
+        },
         productDescription:{
             type: String,
             required: true
@@ -15,11 +19,15 @@ const ShoppingCartSchema = new mongoose.Schema(
             type:String,
             required: true
         },
+        productCategory:{
+            type:String,
+            required: false
+        },
         productQuantity:{
             type: String,
-            required: true
+            required: false
         },
-        productImage:{
+        productAvatar:{
             type:String,
             required:false
         }

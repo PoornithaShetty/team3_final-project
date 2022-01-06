@@ -1,7 +1,7 @@
 const mongoose=require('mongoose');
 
 //Create the schema
-const PaintingSchema = new mongoose.Schema(
+const ProductSchema = new mongoose.Schema(
     {
         productName:{
             type: String,
@@ -32,7 +32,8 @@ const PaintingSchema = new mongoose.Schema(
 )
 
 //Create the model
- const PaintingModel = mongoose.model('paintings', PaintingSchema);
-
+ const PaintingModel = mongoose.model('paintings', ProductSchema);
+//  const SculptureModel = mongoose.model('sculpture', ProductSchema);
 //Export the model
   module.exports = PaintingModel;
+//   module.exports = SculptureModel;

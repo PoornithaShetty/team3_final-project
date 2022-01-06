@@ -31,7 +31,7 @@ function HomeDecorPage(){
                 <div className="col">
                 <div className="card">
                 <div className="d-flex flex-column h-50 text-shadow-1">
-                    <img src={item.productImage} className="card-img-top" alt="..." width="80" height="250"/>
+                    <img src={item.avatar} className="card-img-top" alt="..." width="80" height="250"/>
                     <div className="card-body">
                     <p className="card-text"></p>
                     <p className="card-text">{item.productName}</p>

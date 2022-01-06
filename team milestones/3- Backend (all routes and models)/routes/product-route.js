@@ -1,11 +1,22 @@
 const express = require('express');
 
 const router = express.Router();
-
+const cloudinary = require('cloudinary').v2;
 const ProductModel = require('../models/ProductModel.js');
 const HomeDecorModel = require('../models/HomeDecorModel.js');
 const PaintingModel = require('../models/PaintingModel.js');
-const cloudinary = require('cloudinary').v2;
+const SculptureModel = require('../models/PaintingModel.js');
+const ShoppingCartModel = require('../models/ShoppingCartModel.js');
+
+router.get(
+    '/:productCategory/productlist', 
+    function(req, res) {
+        ProductModel.find().then(products => {
+        res.status(200).json(products);
+    }).catch(err => {
+        res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
+    });
+})
 
 router.get(
     '/productlist', 
@@ -18,9 +29,9 @@ router.get(
 })
 
 router.get(
-    '/homedecorproductlist', 
+    '/cartitems', 
     function(req, res) {
-        HomeDecorModel.find().then(products => {
+        ShoppingCartModel.find().then(products => {
         res.status(200).json(products);
     }).catch(err => {
         res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
@@ -28,266 +39,211 @@ router.get(
 })
 
 router.get(
-    '/paintingsproductlist', 
-    function(req, res) {       
-        PaintingModel.find().then(products => {
+    '/:product_id', 
+    function(req, res) {
+        ProductModel.findById(req.params.product_id).then(products => {
         res.status(200).json(products);
     }).catch(err => {
         res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
     });
 })
 
-router.get(
-    '/:productCategory/:product_id/', 
+router.post( '/productadd',
     function(req, res) {
-        productCategory = req.params.productCategory
-        if (productCategory === "homedecor"){
-        HomeDecorModel.findById(req.params.product_id).then(products => {
-        res.status(200).json(products);
-    })
-    .catch(err => {
-        res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
-    });
-}
-        else if (productCategory === "paintings") {
-        PaintingModel.findById(req.params.product_id).then(products => {
-            res.status(200).json(products);
-        }).catch(err => {
-            res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
-        });
-    }
-})
 
-// router.get(
-//     '/:productCategory/:product_id/', 
-//     function(req, res) {
-//         PaintingModel.findById(req.params.product_id).then(products => {
-//             res.status(200).json(products);
-//         }).catch(err => {
-//             res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
-//         });
-//     }
-// )
-
-// router.get(
-//     '/paintings/:product_id', 
-//     function(req, res) {
-//         PaintingModel.findById(req.params.product_id).then(products => {
-//         res.status(200).json(products);
-//     }).catch(err => {
-//         res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
-//     });
-// })
-
-// router.post("/:product_id", function(req, res) {
-//     const formData = {
-//         'productName' : req.body.productName,
-//         'productDescription' : req.body.productDescription,
-//         'productPrice' : req.body.productPrice,
-//         'productStock' : req.body.productStock,
-//         'productImage' : req.body.productImage
-//     }
-//     ProductModel.findByIdAndUpdate(req.params.product_id,formData,{new: true})
-//     .then(formData => {
-//             res.status(200).json(`Product updated! Updated product details: ${formData}`);
-//             })
-//     .catch(err => {
-//         res.status(404).send(`Product not found. Error details: ${err.message}`);
-//     });
-// })
-
-
-
-router.post(
-    '/productadd',
-    function(req, res){
+        // Client (browser, postman) POSTs this...
         const formData = {
-            'productName' : req.body.productName,
-            'productDescription' : req.body.productDescription,
-            'productPrice' : req.body.productPrice,
-            'productStock' : req.body.productStock,
-            'productCategory' : req.body.productCategory,
+            'productName': req.body.productName,
+            'productDescription': req.body.productDescription,
+            'productPrice': req.body.productPrice,
+            'productStock': req.body.productStock,
+            'productCategory': req.body.productCategory,
         }
-        async function add () {
-            // If avatar file is included...
-            if( Object.values(req.files).length > 0 ) {
-   
-               const files = Object.values(req.files);
-               
-               // upload to Cloudinary
-               await cloudinary.uploader.upload(
-                   files[0].path,
-                   (cloudinaryErr, cloudinaryResult) => {
-                       if(cloudinaryErr) {
-                           console.log(cloudinaryErr);
-                           res.json(
-                               {
-                                   status: "not ok",
-                                   message: "Error occured during image upload"
-                               }
-                           )
-                       } else {
-                           // Include the image url in formData
-                           formData.avatar = cloudinaryResult.url;
-                       }
-                   }
-               )
-           };
-        }
+
+        // Check if email is unique
         ProductModel
-        .create(formData)
-        //if successfull
+        .findOne( { productCategory: formData['productCategory']} )
         .then(
-            function(createdDocument) {
-                // Express sends this...
-               res.json({
-                   status: "ok",
-                   createdDocument
-                });
+            async function (dbDocument) {
+
+                // If avatar file is included...
+                if( Object.values(req.files).length > 0 ) {
+
+                    const files = Object.values(req.files);
+                    
+                    // upload to Cloudinary
+                    await cloudinary.uploader.upload(
+                        files[0].path,
+                        (cloudinaryErr, cloudinaryResult) => {
+                            if(cloudinaryErr) {
+                                console.log(cloudinaryErr);
+                                res.json(
+                                    {
+                                        status: "not ok",
+                                        message: "Error occured during image upload"
+                                    }
+                                )
+                            } else {
+                                // Include the image url in formData
+                                formData.avatar = cloudinaryResult.url;
+                                console.log('formData.avatar', formData.avatar)
+                            }
+                        }
+                    )
+                };
+
+                // If email is unique...
+                if(dbDocument) {
+                                    ProductModel
+                                    .create(formData)
+                                    // If successful...
+                                    .then(
+                                        function(createdDocument) {
+                                            // Express sends this...
+                                           res.json({
+                                               status: "ok",
+                                               createdDocument
+                                            });
+                                        }
+                                    )
+                                    // If problem occurs, the catch the problem...
+                                    .catch(
+                                        function(dbError) {
+                                            // For the developer
+                                            console.log('An error occured during .create()', dbError);
+
+                                            // For the client (frontend app)
+                                            res.status(503).json(
+                                                {
+                                                    "status": "not ok",
+                                                    "message": "Something went wrong with db"
+                                                }
+                                            )
+                                        }
+                                    )
+                }
             }
         )
-        //If Problem occurs,
         .catch(
-            function(dbError)
-            {
-                console.log("An error occured during .create()", dbError);
+            function(dbError) {
+
+                // For the developer
+                console.log(
+                    'An error occured', dbError
+                );
+
+                // For the client (frontend app)
+                res.status(503).json(
+                    {
+                        "status": "not ok",
+                        "message": "Something went wrong with db"
+                    }
+                )
+
             }
         )
     }
+);
 
-)
 
-router.post(
-    '/homedecorproductadd',
-    function(req, res){
+router.post( '/cartadd',
+    function(req, res) {
+
+        // Client (browser, postman) POSTs this...
         const formData = {
-            'productName' : req.body.productName,
-            'productDescription' : req.body.productDescription,
-            'productPrice' : req.body.productPrice,
-            'productStock' : req.body.productStock,
-            'productCategory' : req.body.productCategory,
+            'productName': req.body.productName,
+            'productDescription': req.body.productDescription,
+            'productPrice': req.body.productPrice,
+            'productStock': req.body.productStock,
+            'productCategory': req.body.productCategory,
+            'productQuantity' : req.body.productQuantity,
+            'userEmail' : req.body.userEmail,
         }
-        async function add () {
-            // If avatar file is included...
-            if( Object.values(req.files).length > 0 ) {
-   
-               const files = Object.values(req.files);
-               
-               // upload to Cloudinary
-               await cloudinary.uploader.upload(
-                   files[0].path,
-                   (cloudinaryErr, cloudinaryResult) => {
-                       if(cloudinaryErr) {
-                           console.log(cloudinaryErr);
-                           res.json(
-                               {
-                                   status: "not ok",
-                                   message: "Error occured during image upload"
-                               }
-                           )
-                       } else {
-                           // Include the image url in formData
-                           formData.avatar = cloudinaryResult.url;
-                       }
-                   }
-               )
-           };
-        }
-        HomeDecorModel
-        .create(formData)
-        //if successfull
+
+        // Check if email is unique
+        ShoppingCartModel
+        .findOne( { productCategory: formData['productCategory']} )
         .then(
-            function(createdDocument) {
-                // Express sends this...
-               res.json({
-                   status: "ok",
-                   createdDocument
-                });
+            async function (dbDocument) {
+
+                // If avatar file is included...
+                if( Object.values(req.files).length > 0 ) {
+
+                    const files = Object.values(req.files);
+                    
+                    // upload to Cloudinary
+                    await cloudinary.uploader.upload(
+                        files[0].path,
+                        (cloudinaryErr, cloudinaryResult) => {
+                            if(cloudinaryErr) {
+                                console.log(cloudinaryErr);
+                                res.json(
+                                    {
+                                        status: "not ok",
+                                        message: "Error occured during image upload"
+                                    }
+                                )
+                            } else {
+                                // Include the image url in formData
+                                formData.avatar = cloudinaryResult.url;
+                                console.log('formData.avatar', formData.avatar)
+                            }
+                        }
+                    )
+                };
+
+                // If email is unique...
+                if(dbDocument) {
+                                    ShoppingCartModel
+                                    .create(formData)
+                                    // If successful...
+                                    .then(
+                                        function(createdDocument) {
+                                            // Express sends this...
+                                           res.json({
+                                               status: "ok",
+                                               createdDocument
+                                            });
+                                        }
+                                    )
+                                    // If problem occurs, the catch the problem...
+                                    .catch(
+                                        function(dbError) {
+                                            // For the developer
+                                            console.log('An error occured during .create()', dbError);
+
+                                            // For the client (frontend app)
+                                            res.status(503).json(
+                                                {
+                                                    "status": "not ok",
+                                                    "message": "Something went wrong with db"
+                                                }
+                                            )
+                                        }
+                                    )
+                }
             }
         )
-        //If Problem occurs,
         .catch(
-            function(dbError)
-            {
-                console.log("An error occured during .create()", dbError);
+            function(dbError) {
+
+                // For the developer
+                console.log(
+                    'An error occured', dbError
+                );
+
+                // For the client (frontend app)
+                res.status(503).json(
+                    {
+                        "status": "not ok",
+                        "message": "Something went wrong with db"
+                    }
+                )
+
             }
         )
-    //     let product = new ProductModel(req.body);
-    // product.save().then(product => {
-    //     res.status(200).json({"product": `Product added successfully. Created product details: ${product}`});
-    // })
-    // .catch(err => {
-    //     res.status(400).send(`Adding new product failed. Error details: ${err.message}`);
-    // });
     }
-
-)
-
-router.post(
-    '/paintingproductadd',
-    function(req, res){
-        const formData = {
-            'productName' : req.body.productName,
-            'productDescription' : req.body.productDescription,
-            'productPrice' : req.body.productPrice,
-            'productStock' : req.body.productStock,
-            'productCategory' : req.body.productCategory,
-        }
-        async function add () {
-            // If avatar file is included...
-            if( Object.values(req.files).length > 0 ) {
-   
-               const files = Object.values(req.files);
-               
-               // upload to Cloudinary
-               await cloudinary.uploader.upload(
-                   files[0].path,
-                   (cloudinaryErr, cloudinaryResult) => {
-                       if(cloudinaryErr) {
-                           console.log(cloudinaryErr);
-                           res.json(
-                               {
-                                   status: "not ok",
-                                   message: "Error occured during image upload"
-                               }
-                           )
-                       } else {
-                           // Include the image url in formData
-                           formData.avatar = cloudinaryResult.url;
-                       }
-                   }
-               )
-           };
-        }
-        PaintingModel
-        .create(formData)
-        //if successfull
-        .then(
-            function(createdDocument) {
-                // Express sends this...
-               res.json({
-                   status: "ok",
-                   createdDocument
-                });
-            }
-        )
-        //If Problem occurs,
-        .catch(
-            function(dbError)
-            {
-                console.log("An error occured during .create()", dbError);
-            }
-        )
-    //     let product = new ProductModel(req.body);
-    // product.save().then(product => {
-    //     res.status(200).json({"product": `Product added successfully. Created product details: ${product}`});
-    // })
-    // .catch(err => {
-    //     res.status(400).send(`Adding new product failed. Error details: ${err.message}`);
-    // });
-    }
-
-)
+);
 
 router.post("/:product_id", function(req, res) {
     const formData = {

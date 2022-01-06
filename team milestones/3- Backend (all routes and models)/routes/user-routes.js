@@ -242,37 +242,58 @@ router.post('/login',
     }
 )
 
+    
 
-router.get(
-    '/get',         // http://www.website.com/user/get
-    function() {
-        UserModel
-        .find()
-        .then(
-            function(dbDocument) {
-                res.json(
-                    {
-                        message: dbDocument
-                    }
-                )
-            }
-        )
-        .catch(
-            (err) => {
-                console.log(err);
-                res.status(503).json(
-                    {
-                        "status": "not ok",
-                        "message": "Please try again later"
-                    }
-                );
-            }
-        )
-    }
-)
+
+// router.get(
+//     '/get',         // http://www.website.com/user/get
+//     function(req, res) {
+//         UserModel
+//         .find()
+//         .then(
+//             function(dbDocument) {
+//                 res.json(
+//                     {
+//                         message: dbDocument
+//                     }
+//                 )
+//             }
+//         )
+//         .catch(
+//             (err) => {
+//                 console.log(err);
+//                 res.status(503).json(
+//                     {
+//                         "status": "not ok",
+//                         "message": "Please try again later"
+//                     }
+//                 );
+//             }
+//         )
+//     }
+// )
 
 // router.post('/login')
 // router.get('/all')
 
+router.get(
+    '/get', 
+    function(req, res) {
+        UserModel.find().then(user => {
+        res.status(200).json(user);
+    }).catch(err => {
+        res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
+    });
+})
+
+router.get(
+    '/:user_id', 
+    function(req, res) {
+        UserModel.findById(req.params.user_id).then(products => {
+        res.status(200).json(products);
+    }).catch(err => {
+        res.status(400).send(`Recieving products failed. Error details: ${err.message}`);
+    });
+})
 
 module.exports = router;

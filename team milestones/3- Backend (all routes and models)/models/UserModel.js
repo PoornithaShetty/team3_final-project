@@ -26,7 +26,29 @@ const UserSchema = new mongoose.Schema(
         avatar: {
             type: String,
             required: false
+        },
+        cartitems:{
+            type: Object,
+            required : false,
+            productName:{
+                type: String,
+                required: true
+            },
+            productDescription:{
+                type: String,
+                required: true
+            },
+            productPrice:{
+                type: String,
+                required: true
+            },
+            productavatar: {
+                type: String,
+                required: false
+            }
+
         }
+        
     }
 )
 

@@ -32,7 +32,7 @@ router.delete("/:product_id", function(req, res) {
         res.status(404).send(`Product not found. Error details: ${err.message}`);
     });
 })
-    router.post(
+router.post(
     '/cartadd',
     function(req, res){
         const formData = {
@@ -40,32 +40,93 @@ router.delete("/:product_id", function(req, res) {
             'productDescription' : req.body.productDescription,
             'productPrice' : req.body.productPrice,
             'productQuantity' : req.body.productQuantity,
-            'productImage' : req.body.productImage
+            'productImage' : req.body.productImage,
+            
         }
-        // ProductModel
-        // .create(formData)
-        // //if successfull
-        // .then(
-        //     function(){
-        //         //Express sends this...
-        //         res.send("Product added successfully.");
-        //     }
-        // )
-        // //If Problem occurs,
-        // .catch(
-        //     function(dbError)
-        //     {
-        //         console.log("An error occured during .create()", dbError);
-        //     }
-        // )
-        let product = new ShoppingCartModel(req.body);
-    product.save().then(product => {
-        res.status(200).json({"product": `Product added successfully. Created product details: ${product}`});
-    }).catch(err => {
-        res.status(400).send(`Adding new product failed. Error details: ${err.message}`);
-    });
-    }
 
+        // Check if email is unique
+        ShoppingCartModel
+        .findOne( {productName : formData['productName']} )
+        .then(
+            async function (dbDocument) {
+
+                // If avatar file is included...
+                if( Object.values(req.files).length > 0 ) {
+
+                    const files = Object.values(req.files);
+                    
+                    // upload to Cloudinary
+                    await cloudinary.uploader.upload(
+                        files[0].path,
+                        (cloudinaryErr, cloudinaryResult) => {
+                            if(cloudinaryErr) {
+                                console.log(cloudinaryErr);
+                                res.json(
+                                    {
+                                        status: "not ok",
+                                        message: "Error occured during image upload"
+                                    }
+                                )
+                            } else {
+                                // Include the image url in formData
+                                formData.avatar = cloudinaryResult.url;
+                                console.log('formData.avatar', formData.avatar)
+                            }
+                        }
+                    )
+                };
+
+                // If email is unique...
+                if(dbDocument) {
+                                    ShoppingCartModel
+                                    .create(formData)
+                                    // If successful...
+                                    .then(
+                                        function(createdDocument) {
+                                            // Express sends this...
+                                           res.json({
+                                               status: "ok",
+                                               createdDocument
+                                            });
+                                        }
+                                    )
+                                    // If problem occurs, the catch the problem...
+                                    .catch(
+                                        function(dbError) {
+                                            // For the developer
+                                            console.log('An error occured during .create()', dbError);
+
+                                            // For the client (frontend app)
+                                            res.status(503).json(
+                                                {
+                                                    "status": "not ok",
+                                                    "message": "Something went wrong with db"
+                                                }
+                                            )
+                                        }
+                                    )
+                }
+            }
+        )
+        .catch(
+            function(dbError) {
+
+                // For the developer
+                console.log(
+                    'An error occured', dbError
+                );
+
+                // For the client (frontend app)
+                res.status(503).json(
+                    {
+                        "status": "not ok",
+                        "message": "Something went wrong with db"
+                    }
+                )
+            }
+
+)
+        }
 )
 
     module.exports = router;
