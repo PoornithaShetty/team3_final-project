@@ -137,13 +137,6 @@ function AddProduct(){
                     productStockField = thisInputField
                 }
             }className="field form-control" name="productStock"  type="text" />
-
-            {/* <label>Enter Product Category </label>
-            <input ref={
-                function(thisInputField) {
-                    productCategoryField = thisInputField
-                }
-            }className="field form-control" name="productCategory" type="text" /> */}
             <br/>
             <div className="input-group">
             <select ref={

@@ -14,18 +14,6 @@ function ProductDetailsPage(props){
 }, []);
     const productId = props.match.params.productId
     
-    //  const url = window.location.href
-
-    //  console.log(url)
-
-    //  const pathname = window.location.pathname
-    //  console.log(pathname)
-
-    //  const category = pathname.split(`/`)
-    //  console.log(category)
-
-    //  const productCategory = category.at(1)
-    //  console.log(productCategory)
     const { firstName, lastName, email, avatar, updateUser } = useContext(UserContext);
 
     const [items, setItems] = useState([]);
@@ -53,14 +41,7 @@ function ProductDetailsPage(props){
    };
 
         const [formState,setFormState] = useState("initial"); 
-//    let productNameField;
-//    let productDescriptionField;
-//    let productPriceField;
-//    let productStockField;
-//    let productCategoryField;
 
-   
-//    let avatarInput;
    const formData = new FormData();
 
 

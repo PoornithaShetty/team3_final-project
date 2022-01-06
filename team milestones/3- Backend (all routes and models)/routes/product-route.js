@@ -62,7 +62,7 @@ router.post( '/productadd',
 
         // Check if email is unique
         ProductModel
-        .findOne( { productCategory: formData['productCategory']} )
+        .findOne()
         .then(
             async function (dbDocument) {
 

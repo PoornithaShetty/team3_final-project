@@ -11,6 +11,15 @@ function FP_Header(props)
     const { firstName, lastName, email, avatar, updateUser } = useContext(UserContext);
     const [state, setState] = useState({})
 
+    function logout() {
+        updateUser(
+            {
+                ...{}
+            }
+        )
+        localStorage.clear()
+    }
+
     useEffect(
         function() {
             setState(
@@ -34,7 +43,14 @@ function FP_Header(props)
      </a>
      <h2 className='Header_color'>MAHALA محلة</h2> 
      <ul className="nav col-12 col-lg-auto me-lg-auto mb-2 ms-4 justify-content-center mb-md-0">
-          <li><a href="#" class="nav-link px-3 link-secondary">Home</a></li>
+         {
+     (!(localStorage.jsonwebtoken)) && 
+          <li><a href="/" class="nav-link px-3 link-secondary">Home</a></li>
+         }
+         {
+             ((localStorage.jsonwebtoken)) && 
+              <li><a href="/landing" class="nav-link px-3 link-secondary">Home</a></li>
+         }
           <li><a href="/aboutus" class="nav-link px-3 link-secondary">About us</a></li>
           <li><a href="#" class="nav-link px-3 link-secondary">Shop</a></li>
           <li><a href="#" class="nav-link px-3 link-secondary">Blog</a></li>
@@ -62,7 +78,7 @@ function FP_Header(props)
         <button type="button" className="btn btn-outline me-2 text-secondary">Add Product</button>
         </Link> 
         <Link to="/loggedout" className="px-2">
-        <img type="button" src ={power} width={30}/>
+        <img type="button" onClick={logout} src ={power} width={30}/>
         </Link> 
         </div>  
        

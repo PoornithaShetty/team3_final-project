@@ -45,6 +45,7 @@ function App(){
                 <LayoutRoute path='/usercart/:userId' exact={true} component={UserCart}/>
                 <LayoutRoute path="/profile" exact={true} component={ProfileScreen} />
                 <LayoutRoute path="/productadd" exact={true} component={AddProduct} />
+                <LayoutRoute path="/loggedout" exact={true} component={LoggedOut}/>
                 <LayoutRoute path="/product/:productId" exact={true} component={ProductDetailsPage} />
                 <SellerLayoutRoute path='/seller/sellerlogin' exact={true} component={SellerLogin}/>
                 <SellerLayoutRoute path='/seller/register' exact={true} component={SellerRegistration}/>

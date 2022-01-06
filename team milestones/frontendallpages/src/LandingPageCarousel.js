@@ -1,6 +1,9 @@
 import carouselimage1 from './HomeDecorImage.jpg';
 import carouselimage2 from './clock1.png';
-import carouselimage3 from './giftimage.jpg'
+import carouselimage3 from './giftimage.jpg';
+import Sculp1 from './Sculp1.jpg';
+import Painting2 from './Painting2.png'
+
 function LandingPageCarousel()
 {
     return(
@@ -12,13 +15,13 @@ function LandingPageCarousel()
     </div>
     <div className="carousel-inner">
       <div className="carousel-item">
-        <img className="bd-placeholder-img" width="420px" height="420px" src={carouselimage1} aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"/><rect width="50%" height="50%" fill="#777"></rect>
+        <img className="bd-placeholder-img" width="420px" height="420px" src={Painting2} aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"/><rect width="50%" height="50%" fill="#777"></rect>
 
         <div className="container">
           <div className="carousel-caption text-start">
             <h1>Example headline.</h1>
             <p>Some representative placeholder content for the first slide of the carousel.</p>
-            <p><a className="btn btn-lg btn-primary" href="#">Sign up today</a></p>
+            <p><a className="btn btn-lg btn-color text-white" href="/painting">Shop Now</a></p>
           </div>
         </div>
       </div>
@@ -29,18 +32,18 @@ function LandingPageCarousel()
           <div className="carousel-caption">
             <h1>Another example headline.</h1>
             <p>Some representative placeholder content for the second slide of the carousel.</p>
-            <p><a className="btn btn-lg btn-primary" href="#">Learn more</a></p>
+            <p><a className="btn btn-lg btn-color" href="/sculpture">Shop Now</a></p>
           </div>
         </div>
       </div>
       <div className="carousel-item active">
-        <img className="bd-placeholder-img" width="420px" height="420px" src={carouselimage3}aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"/><rect width="100%" height="100%" fill="#777"></rect>
+        <img className="bd-placeholder-img" width="420px" height="420px" src={Sculp1}aria-hidden="true" preserveAspectRatio="xMidYMid slice" focusable="false"/><rect width="100%" height="100%" fill="#777"></rect>
 
         <div className="container">
           <div className="carousel-caption text-end">
             <h1>One more for good measure.</h1>
             <p>Some representative placeholder content for the third slide of this carousel.</p>
-            <p><a className="btn btn-lg btn-primary" href="#">Browse gallery</a></p>
+            <p><a className="btn btn-lg btn-color text-white" href="#">Browse gallery</a></p>
           </div>
         </div>
       </div>

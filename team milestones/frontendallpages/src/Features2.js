@@ -49,7 +49,7 @@ function Features2(){
                         <small>Price:{item.productPrice}</small>
                     </li>
                     </ul>
-                    <Link to={`/homedecor/${item._id}`} className="btn btn-primary">View Details</Link>
+                    <Link to={`/product/${item._id}`} className="btn btn-color text-white">View Details</Link>
                     </div>
                     </div>
                 </div>
